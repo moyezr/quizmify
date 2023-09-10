@@ -97,7 +97,7 @@ export async function POST(req: Request, res: Response) {
     }
 
     return NextResponse.json({ gameId: game.id }, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: error.issues },
@@ -107,7 +107,7 @@ export async function POST(req: Request, res: Response) {
       );
     } else {
       return NextResponse.json(
-        { error: "An unexpected error occurred." },
+        { error: error?.message || "An Unexpected Error Occured" },
         {
           status: 500,
         }
@@ -160,9 +160,9 @@ export async function GET(req: Request, res: Response) {
         status: 400,
       }
     );
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "An unexpected error occurred." },
+      { error: error?.message || "An Unexpected Error Occured" },
       {
         status: 500,
       }
